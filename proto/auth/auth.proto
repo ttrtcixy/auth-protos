@@ -1,0 +1,77 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+package users;
+
+option go_package = "github.com/ttrtcixy/auth-protos/gen/go/auth;auth";
+
+service UsersAuth {
+  rpc Signin(SigninRequest) returns (SigninResponse) {}
+  rpc Signup(SignupRequest) returns (google.protobuf.Empty) {}
+  rpc Signout(SignoutRequest) returns (google.protobuf.Empty) {}
+  rpc VerifyEmail(VerifyEmailRequest) returns (VerifyEmailResponse) {}
+  rpc UpdateSession(UpdateSessionRequest) returns (UpdateSessionResponse) {}
+  rpc VerifyToken(VerifyTokenRequest) returns (VerifyTokenResponse) {}
+  rpc PublicKey(google.protobuf.Empty) returns (PublicKeyResponse) {}
+}
+
+message SigninRequest {
+  string name_or_email = 1;
+  string password = 2;
+}
+
+message SigninResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+  string client_id = 3;
+}
+
+message SignupRequest {
+  string username = 1;
+  string email = 2;
+  string password = 3;
+}
+
+message SignoutRequest {
+  string refresh_token = 1;
+}
+
+message VerifyEmailRequest {
+  string email_verify_token = 1;
+}
+
+message VerifyEmailResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+  string client_id = 3;
+}
+
+message UpdateSessionRequest {
+  string refresh_token = 1;
+  //  string client_id = 2;
+}
+
+message UpdateSessionResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+}
+
+message VerifyTokenRequest {
+  string access_token = 1;
+}
+
+message UserData {
+  int64 id = 1;
+  string username = 2;
+  string email = 3;
+  string role_id = 4;
+}
+
+message VerifyTokenResponse {
+  bool status = 1;
+  UserData user_data = 2;
+}
+
+message PublicKeyResponse {
+  repeated bytes public_key = 1;
+}

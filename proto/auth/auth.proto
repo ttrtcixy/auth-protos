@@ -68,7 +68,6 @@ message UserData {
 }
 
 message VerifyTokenResponse {
-  bool status = 1;
   UserData user_data = 2;
 }
 

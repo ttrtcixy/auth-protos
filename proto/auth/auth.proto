@@ -16,7 +16,7 @@ service UsersAuth {
 }
 
 message SigninRequest {
-  string name_or_email = 1;
+  string username_or_email = 1;
   string password = 2;
 }
 

@@ -596,7 +596,7 @@ func (x *VerifyTokenResponse) GetUserData() *UserData {
 
 type PublicKeyResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	PublicKey     [][]byte               `protobuf:"bytes,1,rep,name=public_key,json=publicKey,proto3" json:"public_key,omitempty"`
+	PublicKey     []byte                 `protobuf:"bytes,1,opt,name=public_key,json=publicKey,proto3" json:"public_key,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -631,7 +631,7 @@ func (*PublicKeyResponse) Descriptor() ([]byte, []int) {
 	return file_auth_auth_proto_rawDescGZIP(), []int{11}
 }
 
-func (x *PublicKeyResponse) GetPublicKey() [][]byte {
+func (x *PublicKeyResponse) GetPublicKey() []byte {
 	if x != nil {
 		return x.PublicKey
 	}
@@ -678,7 +678,7 @@ const file_auth_auth_proto_rawDesc = "" +
 	"\tuser_data\x18\x02 \x01(\v2\x0f.users.UserDataR\buserData\"2\n" +
 	"\x11PublicKeyResponse\x12\x1d\n" +
 	"\n" +
-	"public_key\x18\x01 \x03(\fR\tpublicKey2\xd9\x03\n" +
+	"public_key\x18\x01 \x01(\fR\tpublicKey2\xd9\x03\n" +
 	"\tUsersAuth\x127\n" +
 	"\x06Signin\x12\x14.users.SigninRequest\x1a\x15.users.SigninResponse\"\x00\x128\n" +
 	"\x06Signup\x12\x14.users.SignupRequest\x1a\x16.google.protobuf.Empty\"\x00\x12:\n" +

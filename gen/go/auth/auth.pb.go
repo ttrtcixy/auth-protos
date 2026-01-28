@@ -22,6 +22,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// todo подумать над возвращением ClientID как поля
 type SigninRequest struct {
 	state           protoimpl.MessageState `protogen:"open.v1"`
 	UsernameOrEmail string                 `protobuf:"bytes,1,opt,name=username_or_email,json=usernameOrEmail,proto3" json:"username_or_email,omitempty"`
@@ -596,7 +597,7 @@ func (x *VerifyTokenResponse) GetUserData() *UserData {
 
 type PublicKeyResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	PublicKey     []byte                 `protobuf:"bytes,1,opt,name=public_key,json=publicKey,proto3" json:"public_key,omitempty"`
+	PublicKeysPem [][]byte               `protobuf:"bytes,1,rep,name=public_keys_pem,json=publicKeysPem,proto3" json:"public_keys_pem,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -631,9 +632,9 @@ func (*PublicKeyResponse) Descriptor() ([]byte, []int) {
 	return file_auth_auth_proto_rawDescGZIP(), []int{11}
 }
 
-func (x *PublicKeyResponse) GetPublicKey() []byte {
+func (x *PublicKeyResponse) GetPublicKeysPem() [][]byte {
 	if x != nil {
-		return x.PublicKey
+		return x.PublicKeysPem
 	}
 	return nil
 }
@@ -675,11 +676,10 @@ const file_auth_auth_proto_rawDesc = "" +
 	"\x05email\x18\x03 \x01(\tR\x05email\x12\x17\n" +
 	"\arole_id\x18\x04 \x01(\tR\x06roleId\"C\n" +
 	"\x13VerifyTokenResponse\x12,\n" +
-	"\tuser_data\x18\x02 \x01(\v2\x0f.users.UserDataR\buserData\"2\n" +
-	"\x11PublicKeyResponse\x12\x1d\n" +
-	"\n" +
-	"public_key\x18\x01 \x01(\fR\tpublicKey2\xd9\x03\n" +
-	"\tUsersAuth\x127\n" +
+	"\tuser_data\x18\x02 \x01(\v2\x0f.users.UserDataR\buserData\";\n" +
+	"\x11PublicKeyResponse\x12&\n" +
+	"\x0fpublic_keys_pem\x18\x01 \x03(\fR\rpublicKeysPem2\xd4\x03\n" +
+	"\x04Auth\x127\n" +
 	"\x06Signin\x12\x14.users.SigninRequest\x1a\x15.users.SigninResponse\"\x00\x128\n" +
 	"\x06Signup\x12\x14.users.SignupRequest\x1a\x16.google.protobuf.Empty\"\x00\x12:\n" +
 	"\aSignout\x12\x15.users.SignoutRequest\x1a\x16.google.protobuf.Empty\"\x00\x12F\n" +
@@ -718,20 +718,20 @@ var file_auth_auth_proto_goTypes = []any{
 }
 var file_auth_auth_proto_depIdxs = []int32{
 	9,  // 0: users.VerifyTokenResponse.user_data:type_name -> users.UserData
-	0,  // 1: users.UsersAuth.Signin:input_type -> users.SigninRequest
-	2,  // 2: users.UsersAuth.Signup:input_type -> users.SignupRequest
-	3,  // 3: users.UsersAuth.Signout:input_type -> users.SignoutRequest
-	4,  // 4: users.UsersAuth.VerifyEmail:input_type -> users.VerifyEmailRequest
-	6,  // 5: users.UsersAuth.UpdateSession:input_type -> users.UpdateSessionRequest
-	8,  // 6: users.UsersAuth.VerifyToken:input_type -> users.VerifyTokenRequest
-	12, // 7: users.UsersAuth.PublicKey:input_type -> google.protobuf.Empty
-	1,  // 8: users.UsersAuth.Signin:output_type -> users.SigninResponse
-	12, // 9: users.UsersAuth.Signup:output_type -> google.protobuf.Empty
-	12, // 10: users.UsersAuth.Signout:output_type -> google.protobuf.Empty
-	5,  // 11: users.UsersAuth.VerifyEmail:output_type -> users.VerifyEmailResponse
-	7,  // 12: users.UsersAuth.UpdateSession:output_type -> users.UpdateSessionResponse
-	10, // 13: users.UsersAuth.VerifyToken:output_type -> users.VerifyTokenResponse
-	11, // 14: users.UsersAuth.PublicKey:output_type -> users.PublicKeyResponse
+	0,  // 1: users.Auth.Signin:input_type -> users.SigninRequest
+	2,  // 2: users.Auth.Signup:input_type -> users.SignupRequest
+	3,  // 3: users.Auth.Signout:input_type -> users.SignoutRequest
+	4,  // 4: users.Auth.VerifyEmail:input_type -> users.VerifyEmailRequest
+	6,  // 5: users.Auth.UpdateSession:input_type -> users.UpdateSessionRequest
+	8,  // 6: users.Auth.VerifyToken:input_type -> users.VerifyTokenRequest
+	12, // 7: users.Auth.PublicKey:input_type -> google.protobuf.Empty
+	1,  // 8: users.Auth.Signin:output_type -> users.SigninResponse
+	12, // 9: users.Auth.Signup:output_type -> google.protobuf.Empty
+	12, // 10: users.Auth.Signout:output_type -> google.protobuf.Empty
+	5,  // 11: users.Auth.VerifyEmail:output_type -> users.VerifyEmailResponse
+	7,  // 12: users.Auth.UpdateSession:output_type -> users.UpdateSessionResponse
+	10, // 13: users.Auth.VerifyToken:output_type -> users.VerifyTokenResponse
+	11, // 14: users.Auth.PublicKey:output_type -> users.PublicKeyResponse
 	8,  // [8:15] is the sub-list for method output_type
 	1,  // [1:8] is the sub-list for method input_type
 	1,  // [1:1] is the sub-list for extension type_name

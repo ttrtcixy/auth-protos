@@ -20,19 +20,19 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UsersAuth_Signin_FullMethodName        = "/users.UsersAuth/Signin"
-	UsersAuth_Signup_FullMethodName        = "/users.UsersAuth/Signup"
-	UsersAuth_Signout_FullMethodName       = "/users.UsersAuth/Signout"
-	UsersAuth_VerifyEmail_FullMethodName   = "/users.UsersAuth/VerifyEmail"
-	UsersAuth_UpdateSession_FullMethodName = "/users.UsersAuth/UpdateSession"
-	UsersAuth_VerifyToken_FullMethodName   = "/users.UsersAuth/VerifyToken"
-	UsersAuth_PublicKey_FullMethodName     = "/users.UsersAuth/PublicKey"
+	Auth_Signin_FullMethodName        = "/users.Auth/Signin"
+	Auth_Signup_FullMethodName        = "/users.Auth/Signup"
+	Auth_Signout_FullMethodName       = "/users.Auth/Signout"
+	Auth_VerifyEmail_FullMethodName   = "/users.Auth/VerifyEmail"
+	Auth_UpdateSession_FullMethodName = "/users.Auth/UpdateSession"
+	Auth_VerifyToken_FullMethodName   = "/users.Auth/VerifyToken"
+	Auth_PublicKey_FullMethodName     = "/users.Auth/PublicKey"
 )
 
-// UsersAuthClient is the client API for UsersAuth service.
+// AuthClient is the client API for Auth service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type UsersAuthClient interface {
+type AuthClient interface {
 	Signin(ctx context.Context, in *SigninRequest, opts ...grpc.CallOption) (*SigninResponse, error)
 	Signup(ctx context.Context, in *SignupRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Signout(ctx context.Context, in *SignoutRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -42,88 +42,88 @@ type UsersAuthClient interface {
 	PublicKey(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*PublicKeyResponse, error)
 }
 
-type usersAuthClient struct {
+type authClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewUsersAuthClient(cc grpc.ClientConnInterface) UsersAuthClient {
-	return &usersAuthClient{cc}
+func NewAuthClient(cc grpc.ClientConnInterface) AuthClient {
+	return &authClient{cc}
 }
 
-func (c *usersAuthClient) Signin(ctx context.Context, in *SigninRequest, opts ...grpc.CallOption) (*SigninResponse, error) {
+func (c *authClient) Signin(ctx context.Context, in *SigninRequest, opts ...grpc.CallOption) (*SigninResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SigninResponse)
-	err := c.cc.Invoke(ctx, UsersAuth_Signin_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, Auth_Signin_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *usersAuthClient) Signup(ctx context.Context, in *SignupRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *authClient) Signup(ctx context.Context, in *SignupRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, UsersAuth_Signup_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, Auth_Signup_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *usersAuthClient) Signout(ctx context.Context, in *SignoutRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *authClient) Signout(ctx context.Context, in *SignoutRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, UsersAuth_Signout_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, Auth_Signout_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *usersAuthClient) VerifyEmail(ctx context.Context, in *VerifyEmailRequest, opts ...grpc.CallOption) (*VerifyEmailResponse, error) {
+func (c *authClient) VerifyEmail(ctx context.Context, in *VerifyEmailRequest, opts ...grpc.CallOption) (*VerifyEmailResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(VerifyEmailResponse)
-	err := c.cc.Invoke(ctx, UsersAuth_VerifyEmail_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, Auth_VerifyEmail_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *usersAuthClient) UpdateSession(ctx context.Context, in *UpdateSessionRequest, opts ...grpc.CallOption) (*UpdateSessionResponse, error) {
+func (c *authClient) UpdateSession(ctx context.Context, in *UpdateSessionRequest, opts ...grpc.CallOption) (*UpdateSessionResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UpdateSessionResponse)
-	err := c.cc.Invoke(ctx, UsersAuth_UpdateSession_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, Auth_UpdateSession_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *usersAuthClient) VerifyToken(ctx context.Context, in *VerifyTokenRequest, opts ...grpc.CallOption) (*VerifyTokenResponse, error) {
+func (c *authClient) VerifyToken(ctx context.Context, in *VerifyTokenRequest, opts ...grpc.CallOption) (*VerifyTokenResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(VerifyTokenResponse)
-	err := c.cc.Invoke(ctx, UsersAuth_VerifyToken_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, Auth_VerifyToken_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *usersAuthClient) PublicKey(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*PublicKeyResponse, error) {
+func (c *authClient) PublicKey(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*PublicKeyResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(PublicKeyResponse)
-	err := c.cc.Invoke(ctx, UsersAuth_PublicKey_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, Auth_PublicKey_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// UsersAuthServer is the server API for UsersAuth service.
-// All implementations must embed UnimplementedUsersAuthServer
+// AuthServer is the server API for Auth service.
+// All implementations must embed UnimplementedAuthServer
 // for forward compatibility.
-type UsersAuthServer interface {
+type AuthServer interface {
 	Signin(context.Context, *SigninRequest) (*SigninResponse, error)
 	Signup(context.Context, *SignupRequest) (*emptypb.Empty, error)
 	Signout(context.Context, *SignoutRequest) (*emptypb.Empty, error)
@@ -131,218 +131,218 @@ type UsersAuthServer interface {
 	UpdateSession(context.Context, *UpdateSessionRequest) (*UpdateSessionResponse, error)
 	VerifyToken(context.Context, *VerifyTokenRequest) (*VerifyTokenResponse, error)
 	PublicKey(context.Context, *emptypb.Empty) (*PublicKeyResponse, error)
-	mustEmbedUnimplementedUsersAuthServer()
+	mustEmbedUnimplementedAuthServer()
 }
 
-// UnimplementedUsersAuthServer must be embedded to have
+// UnimplementedAuthServer must be embedded to have
 // forward compatible implementations.
 //
 // NOTE: this should be embedded by value instead of pointer to avoid a nil
 // pointer dereference when methods are called.
-type UnimplementedUsersAuthServer struct{}
+type UnimplementedAuthServer struct{}
 
-func (UnimplementedUsersAuthServer) Signin(context.Context, *SigninRequest) (*SigninResponse, error) {
+func (UnimplementedAuthServer) Signin(context.Context, *SigninRequest) (*SigninResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method Signin not implemented")
 }
-func (UnimplementedUsersAuthServer) Signup(context.Context, *SignupRequest) (*emptypb.Empty, error) {
+func (UnimplementedAuthServer) Signup(context.Context, *SignupRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Signup not implemented")
 }
-func (UnimplementedUsersAuthServer) Signout(context.Context, *SignoutRequest) (*emptypb.Empty, error) {
+func (UnimplementedAuthServer) Signout(context.Context, *SignoutRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Signout not implemented")
 }
-func (UnimplementedUsersAuthServer) VerifyEmail(context.Context, *VerifyEmailRequest) (*VerifyEmailResponse, error) {
+func (UnimplementedAuthServer) VerifyEmail(context.Context, *VerifyEmailRequest) (*VerifyEmailResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method VerifyEmail not implemented")
 }
-func (UnimplementedUsersAuthServer) UpdateSession(context.Context, *UpdateSessionRequest) (*UpdateSessionResponse, error) {
+func (UnimplementedAuthServer) UpdateSession(context.Context, *UpdateSessionRequest) (*UpdateSessionResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpdateSession not implemented")
 }
-func (UnimplementedUsersAuthServer) VerifyToken(context.Context, *VerifyTokenRequest) (*VerifyTokenResponse, error) {
+func (UnimplementedAuthServer) VerifyToken(context.Context, *VerifyTokenRequest) (*VerifyTokenResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method VerifyToken not implemented")
 }
-func (UnimplementedUsersAuthServer) PublicKey(context.Context, *emptypb.Empty) (*PublicKeyResponse, error) {
+func (UnimplementedAuthServer) PublicKey(context.Context, *emptypb.Empty) (*PublicKeyResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method PublicKey not implemented")
 }
-func (UnimplementedUsersAuthServer) mustEmbedUnimplementedUsersAuthServer() {}
-func (UnimplementedUsersAuthServer) testEmbeddedByValue()                   {}
+func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
+func (UnimplementedAuthServer) testEmbeddedByValue()              {}
 
-// UnsafeUsersAuthServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to UsersAuthServer will
+// UnsafeAuthServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to AuthServer will
 // result in compilation errors.
-type UnsafeUsersAuthServer interface {
-	mustEmbedUnimplementedUsersAuthServer()
+type UnsafeAuthServer interface {
+	mustEmbedUnimplementedAuthServer()
 }
 
-func RegisterUsersAuthServer(s grpc.ServiceRegistrar, srv UsersAuthServer) {
-	// If the following call panics, it indicates UnimplementedUsersAuthServer was
+func RegisterAuthServer(s grpc.ServiceRegistrar, srv AuthServer) {
+	// If the following call panics, it indicates UnimplementedAuthServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
 	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
 		t.testEmbeddedByValue()
 	}
-	s.RegisterService(&UsersAuth_ServiceDesc, srv)
+	s.RegisterService(&Auth_ServiceDesc, srv)
 }
 
-func _UsersAuth_Signin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Auth_Signin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SigninRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UsersAuthServer).Signin(ctx, in)
+		return srv.(AuthServer).Signin(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UsersAuth_Signin_FullMethodName,
+		FullMethod: Auth_Signin_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UsersAuthServer).Signin(ctx, req.(*SigninRequest))
+		return srv.(AuthServer).Signin(ctx, req.(*SigninRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UsersAuth_Signup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Auth_Signup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SignupRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UsersAuthServer).Signup(ctx, in)
+		return srv.(AuthServer).Signup(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UsersAuth_Signup_FullMethodName,
+		FullMethod: Auth_Signup_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UsersAuthServer).Signup(ctx, req.(*SignupRequest))
+		return srv.(AuthServer).Signup(ctx, req.(*SignupRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UsersAuth_Signout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Auth_Signout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SignoutRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UsersAuthServer).Signout(ctx, in)
+		return srv.(AuthServer).Signout(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UsersAuth_Signout_FullMethodName,
+		FullMethod: Auth_Signout_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UsersAuthServer).Signout(ctx, req.(*SignoutRequest))
+		return srv.(AuthServer).Signout(ctx, req.(*SignoutRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UsersAuth_VerifyEmail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Auth_VerifyEmail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(VerifyEmailRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UsersAuthServer).VerifyEmail(ctx, in)
+		return srv.(AuthServer).VerifyEmail(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UsersAuth_VerifyEmail_FullMethodName,
+		FullMethod: Auth_VerifyEmail_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UsersAuthServer).VerifyEmail(ctx, req.(*VerifyEmailRequest))
+		return srv.(AuthServer).VerifyEmail(ctx, req.(*VerifyEmailRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UsersAuth_UpdateSession_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Auth_UpdateSession_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateSessionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UsersAuthServer).UpdateSession(ctx, in)
+		return srv.(AuthServer).UpdateSession(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UsersAuth_UpdateSession_FullMethodName,
+		FullMethod: Auth_UpdateSession_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UsersAuthServer).UpdateSession(ctx, req.(*UpdateSessionRequest))
+		return srv.(AuthServer).UpdateSession(ctx, req.(*UpdateSessionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UsersAuth_VerifyToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Auth_VerifyToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(VerifyTokenRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UsersAuthServer).VerifyToken(ctx, in)
+		return srv.(AuthServer).VerifyToken(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UsersAuth_VerifyToken_FullMethodName,
+		FullMethod: Auth_VerifyToken_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UsersAuthServer).VerifyToken(ctx, req.(*VerifyTokenRequest))
+		return srv.(AuthServer).VerifyToken(ctx, req.(*VerifyTokenRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UsersAuth_PublicKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Auth_PublicKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UsersAuthServer).PublicKey(ctx, in)
+		return srv.(AuthServer).PublicKey(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UsersAuth_PublicKey_FullMethodName,
+		FullMethod: Auth_PublicKey_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UsersAuthServer).PublicKey(ctx, req.(*emptypb.Empty))
+		return srv.(AuthServer).PublicKey(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// UsersAuth_ServiceDesc is the grpc.ServiceDesc for UsersAuth service.
+// Auth_ServiceDesc is the grpc.ServiceDesc for Auth service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var UsersAuth_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "users.UsersAuth",
-	HandlerType: (*UsersAuthServer)(nil),
+var Auth_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "users.Auth",
+	HandlerType: (*AuthServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Signin",
-			Handler:    _UsersAuth_Signin_Handler,
+			Handler:    _Auth_Signin_Handler,
 		},
 		{
 			MethodName: "Signup",
-			Handler:    _UsersAuth_Signup_Handler,
+			Handler:    _Auth_Signup_Handler,
 		},
 		{
 			MethodName: "Signout",
-			Handler:    _UsersAuth_Signout_Handler,
+			Handler:    _Auth_Signout_Handler,
 		},
 		{
 			MethodName: "VerifyEmail",
-			Handler:    _UsersAuth_VerifyEmail_Handler,
+			Handler:    _Auth_VerifyEmail_Handler,
 		},
 		{
 			MethodName: "UpdateSession",
-			Handler:    _UsersAuth_UpdateSession_Handler,
+			Handler:    _Auth_UpdateSession_Handler,
 		},
 		{
 			MethodName: "VerifyToken",
-			Handler:    _UsersAuth_VerifyToken_Handler,
+			Handler:    _Auth_VerifyToken_Handler,
 		},
 		{
 			MethodName: "PublicKey",
-			Handler:    _UsersAuth_PublicKey_Handler,
+			Handler:    _Auth_PublicKey_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

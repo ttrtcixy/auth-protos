@@ -5,7 +5,7 @@ package users;
 
 option go_package = "github.com/ttrtcixy/auth-protos/gen/go/auth;auth";
 
-service UsersAuth {
+service Auth {
   rpc Signin(SigninRequest) returns (SigninResponse) {}
   rpc Signup(SignupRequest) returns (google.protobuf.Empty) {}
   rpc Signout(SignoutRequest) returns (google.protobuf.Empty) {}
@@ -72,5 +72,5 @@ message VerifyTokenResponse {
 }
 
 message PublicKeyResponse {
-  bytes public_key = 1;
+  repeated bytes public_keys_pem = 1;
 }

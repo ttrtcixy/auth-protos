@@ -12,9 +12,10 @@ service Auth {
   rpc VerifyEmail(VerifyEmailRequest) returns (VerifyEmailResponse) {}
   rpc UpdateSession(UpdateSessionRequest) returns (UpdateSessionResponse) {}
   rpc VerifyToken(VerifyTokenRequest) returns (VerifyTokenResponse) {}
-  rpc PublicKey(google.protobuf.Empty) returns (PublicKeyResponse) {}
+  rpc PublicKeys(google.protobuf.Empty) returns (PublicKeysResponse) {}
 }
 
+// todo подумать над возвращением ClientID как поля
 message SigninRequest {
   string username_or_email = 1;
   string password = 2;
@@ -71,6 +72,6 @@ message VerifyTokenResponse {
   UserData user_data = 2;
 }
 
-message PublicKeyResponse {
-  repeated bytes public_keys_pem = 1;
+message PublicKeysResponse {
+  map<string, bytes> public_keys = 1;
 }

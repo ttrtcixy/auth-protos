@@ -26,7 +26,7 @@ const (
 	Auth_VerifyEmail_FullMethodName   = "/users.Auth/VerifyEmail"
 	Auth_UpdateSession_FullMethodName = "/users.Auth/UpdateSession"
 	Auth_VerifyToken_FullMethodName   = "/users.Auth/VerifyToken"
-	Auth_PublicKey_FullMethodName     = "/users.Auth/PublicKey"
+	Auth_PublicKeys_FullMethodName    = "/users.Auth/PublicKeys"
 )
 
 // AuthClient is the client API for Auth service.
@@ -39,7 +39,7 @@ type AuthClient interface {
 	VerifyEmail(ctx context.Context, in *VerifyEmailRequest, opts ...grpc.CallOption) (*VerifyEmailResponse, error)
 	UpdateSession(ctx context.Context, in *UpdateSessionRequest, opts ...grpc.CallOption) (*UpdateSessionResponse, error)
 	VerifyToken(ctx context.Context, in *VerifyTokenRequest, opts ...grpc.CallOption) (*VerifyTokenResponse, error)
-	PublicKey(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*PublicKeyResponse, error)
+	PublicKeys(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*PublicKeysResponse, error)
 }
 
 type authClient struct {
@@ -110,10 +110,10 @@ func (c *authClient) VerifyToken(ctx context.Context, in *VerifyTokenRequest, op
 	return out, nil
 }
 
-func (c *authClient) PublicKey(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*PublicKeyResponse, error) {
+func (c *authClient) PublicKeys(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*PublicKeysResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(PublicKeyResponse)
-	err := c.cc.Invoke(ctx, Auth_PublicKey_FullMethodName, in, out, cOpts...)
+	out := new(PublicKeysResponse)
+	err := c.cc.Invoke(ctx, Auth_PublicKeys_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -130,7 +130,7 @@ type AuthServer interface {
 	VerifyEmail(context.Context, *VerifyEmailRequest) (*VerifyEmailResponse, error)
 	UpdateSession(context.Context, *UpdateSessionRequest) (*UpdateSessionResponse, error)
 	VerifyToken(context.Context, *VerifyTokenRequest) (*VerifyTokenResponse, error)
-	PublicKey(context.Context, *emptypb.Empty) (*PublicKeyResponse, error)
+	PublicKeys(context.Context, *emptypb.Empty) (*PublicKeysResponse, error)
 	mustEmbedUnimplementedAuthServer()
 }
 
@@ -159,8 +159,8 @@ func (UnimplementedAuthServer) UpdateSession(context.Context, *UpdateSessionRequ
 func (UnimplementedAuthServer) VerifyToken(context.Context, *VerifyTokenRequest) (*VerifyTokenResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method VerifyToken not implemented")
 }
-func (UnimplementedAuthServer) PublicKey(context.Context, *emptypb.Empty) (*PublicKeyResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method PublicKey not implemented")
+func (UnimplementedAuthServer) PublicKeys(context.Context, *emptypb.Empty) (*PublicKeysResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method PublicKeys not implemented")
 }
 func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
 func (UnimplementedAuthServer) testEmbeddedByValue()              {}
@@ -291,20 +291,20 @@ func _Auth_VerifyToken_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Auth_PublicKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Auth_PublicKeys_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServer).PublicKey(ctx, in)
+		return srv.(AuthServer).PublicKeys(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Auth_PublicKey_FullMethodName,
+		FullMethod: Auth_PublicKeys_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).PublicKey(ctx, req.(*emptypb.Empty))
+		return srv.(AuthServer).PublicKeys(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -341,8 +341,8 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Auth_VerifyToken_Handler,
 		},
 		{
-			MethodName: "PublicKey",
-			Handler:    _Auth_PublicKey_Handler,
+			MethodName: "PublicKeys",
+			Handler:    _Auth_PublicKeys_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

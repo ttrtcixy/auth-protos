@@ -595,27 +595,27 @@ func (x *VerifyTokenResponse) GetUserData() *UserData {
 	return nil
 }
 
-type PublicKeyResponse struct {
+type PublicKeysResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	PublicKeysPem [][]byte               `protobuf:"bytes,1,rep,name=public_keys_pem,json=publicKeysPem,proto3" json:"public_keys_pem,omitempty"`
+	PublicKeys    map[string][]byte      `protobuf:"bytes,1,rep,name=public_keys,json=publicKeys,proto3" json:"public_keys,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *PublicKeyResponse) Reset() {
-	*x = PublicKeyResponse{}
+func (x *PublicKeysResponse) Reset() {
+	*x = PublicKeysResponse{}
 	mi := &file_auth_auth_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *PublicKeyResponse) String() string {
+func (x *PublicKeysResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*PublicKeyResponse) ProtoMessage() {}
+func (*PublicKeysResponse) ProtoMessage() {}
 
-func (x *PublicKeyResponse) ProtoReflect() protoreflect.Message {
+func (x *PublicKeysResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_auth_auth_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -627,14 +627,14 @@ func (x *PublicKeyResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use PublicKeyResponse.ProtoReflect.Descriptor instead.
-func (*PublicKeyResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use PublicKeysResponse.ProtoReflect.Descriptor instead.
+func (*PublicKeysResponse) Descriptor() ([]byte, []int) {
 	return file_auth_auth_proto_rawDescGZIP(), []int{11}
 }
 
-func (x *PublicKeyResponse) GetPublicKeysPem() [][]byte {
+func (x *PublicKeysResponse) GetPublicKeys() map[string][]byte {
 	if x != nil {
-		return x.PublicKeysPem
+		return x.PublicKeys
 	}
 	return nil
 }
@@ -676,17 +676,22 @@ const file_auth_auth_proto_rawDesc = "" +
 	"\x05email\x18\x03 \x01(\tR\x05email\x12\x17\n" +
 	"\arole_id\x18\x04 \x01(\tR\x06roleId\"C\n" +
 	"\x13VerifyTokenResponse\x12,\n" +
-	"\tuser_data\x18\x02 \x01(\v2\x0f.users.UserDataR\buserData\";\n" +
-	"\x11PublicKeyResponse\x12&\n" +
-	"\x0fpublic_keys_pem\x18\x01 \x03(\fR\rpublicKeysPem2\xd4\x03\n" +
+	"\tuser_data\x18\x02 \x01(\v2\x0f.users.UserDataR\buserData\"\x9f\x01\n" +
+	"\x12PublicKeysResponse\x12J\n" +
+	"\vpublic_keys\x18\x01 \x03(\v2).users.PublicKeysResponse.PublicKeysEntryR\n" +
+	"publicKeys\x1a=\n" +
+	"\x0fPublicKeysEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\fR\x05value:\x028\x012\xd6\x03\n" +
 	"\x04Auth\x127\n" +
 	"\x06Signin\x12\x14.users.SigninRequest\x1a\x15.users.SigninResponse\"\x00\x128\n" +
 	"\x06Signup\x12\x14.users.SignupRequest\x1a\x16.google.protobuf.Empty\"\x00\x12:\n" +
 	"\aSignout\x12\x15.users.SignoutRequest\x1a\x16.google.protobuf.Empty\"\x00\x12F\n" +
 	"\vVerifyEmail\x12\x19.users.VerifyEmailRequest\x1a\x1a.users.VerifyEmailResponse\"\x00\x12L\n" +
 	"\rUpdateSession\x12\x1b.users.UpdateSessionRequest\x1a\x1c.users.UpdateSessionResponse\"\x00\x12F\n" +
-	"\vVerifyToken\x12\x19.users.VerifyTokenRequest\x1a\x1a.users.VerifyTokenResponse\"\x00\x12?\n" +
-	"\tPublicKey\x12\x16.google.protobuf.Empty\x1a\x18.users.PublicKeyResponse\"\x00B2Z0github.com/ttrtcixy/auth-protos/gen/go/auth;authb\x06proto3"
+	"\vVerifyToken\x12\x19.users.VerifyTokenRequest\x1a\x1a.users.VerifyTokenResponse\"\x00\x12A\n" +
+	"\n" +
+	"PublicKeys\x12\x16.google.protobuf.Empty\x1a\x19.users.PublicKeysResponse\"\x00B2Z0github.com/ttrtcixy/auth-protos/gen/go/auth;authb\x06proto3"
 
 var (
 	file_auth_auth_proto_rawDescOnce sync.Once
@@ -700,7 +705,7 @@ func file_auth_auth_proto_rawDescGZIP() []byte {
 	return file_auth_auth_proto_rawDescData
 }
 
-var file_auth_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_auth_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
 var file_auth_auth_proto_goTypes = []any{
 	(*SigninRequest)(nil),         // 0: users.SigninRequest
 	(*SigninResponse)(nil),        // 1: users.SigninResponse
@@ -713,30 +718,32 @@ var file_auth_auth_proto_goTypes = []any{
 	(*VerifyTokenRequest)(nil),    // 8: users.VerifyTokenRequest
 	(*UserData)(nil),              // 9: users.UserData
 	(*VerifyTokenResponse)(nil),   // 10: users.VerifyTokenResponse
-	(*PublicKeyResponse)(nil),     // 11: users.PublicKeyResponse
-	(*emptypb.Empty)(nil),         // 12: google.protobuf.Empty
+	(*PublicKeysResponse)(nil),    // 11: users.PublicKeysResponse
+	nil,                           // 12: users.PublicKeysResponse.PublicKeysEntry
+	(*emptypb.Empty)(nil),         // 13: google.protobuf.Empty
 }
 var file_auth_auth_proto_depIdxs = []int32{
 	9,  // 0: users.VerifyTokenResponse.user_data:type_name -> users.UserData
-	0,  // 1: users.Auth.Signin:input_type -> users.SigninRequest
-	2,  // 2: users.Auth.Signup:input_type -> users.SignupRequest
-	3,  // 3: users.Auth.Signout:input_type -> users.SignoutRequest
-	4,  // 4: users.Auth.VerifyEmail:input_type -> users.VerifyEmailRequest
-	6,  // 5: users.Auth.UpdateSession:input_type -> users.UpdateSessionRequest
-	8,  // 6: users.Auth.VerifyToken:input_type -> users.VerifyTokenRequest
-	12, // 7: users.Auth.PublicKey:input_type -> google.protobuf.Empty
-	1,  // 8: users.Auth.Signin:output_type -> users.SigninResponse
-	12, // 9: users.Auth.Signup:output_type -> google.protobuf.Empty
-	12, // 10: users.Auth.Signout:output_type -> google.protobuf.Empty
-	5,  // 11: users.Auth.VerifyEmail:output_type -> users.VerifyEmailResponse
-	7,  // 12: users.Auth.UpdateSession:output_type -> users.UpdateSessionResponse
-	10, // 13: users.Auth.VerifyToken:output_type -> users.VerifyTokenResponse
-	11, // 14: users.Auth.PublicKey:output_type -> users.PublicKeyResponse
-	8,  // [8:15] is the sub-list for method output_type
-	1,  // [1:8] is the sub-list for method input_type
-	1,  // [1:1] is the sub-list for extension type_name
-	1,  // [1:1] is the sub-list for extension extendee
-	0,  // [0:1] is the sub-list for field type_name
+	12, // 1: users.PublicKeysResponse.public_keys:type_name -> users.PublicKeysResponse.PublicKeysEntry
+	0,  // 2: users.Auth.Signin:input_type -> users.SigninRequest
+	2,  // 3: users.Auth.Signup:input_type -> users.SignupRequest
+	3,  // 4: users.Auth.Signout:input_type -> users.SignoutRequest
+	4,  // 5: users.Auth.VerifyEmail:input_type -> users.VerifyEmailRequest
+	6,  // 6: users.Auth.UpdateSession:input_type -> users.UpdateSessionRequest
+	8,  // 7: users.Auth.VerifyToken:input_type -> users.VerifyTokenRequest
+	13, // 8: users.Auth.PublicKeys:input_type -> google.protobuf.Empty
+	1,  // 9: users.Auth.Signin:output_type -> users.SigninResponse
+	13, // 10: users.Auth.Signup:output_type -> google.protobuf.Empty
+	13, // 11: users.Auth.Signout:output_type -> google.protobuf.Empty
+	5,  // 12: users.Auth.VerifyEmail:output_type -> users.VerifyEmailResponse
+	7,  // 13: users.Auth.UpdateSession:output_type -> users.UpdateSessionResponse
+	10, // 14: users.Auth.VerifyToken:output_type -> users.VerifyTokenResponse
+	11, // 15: users.Auth.PublicKeys:output_type -> users.PublicKeysResponse
+	9,  // [9:16] is the sub-list for method output_type
+	2,  // [2:9] is the sub-list for method input_type
+	2,  // [2:2] is the sub-list for extension type_name
+	2,  // [2:2] is the sub-list for extension extendee
+	0,  // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_auth_auth_proto_init() }
@@ -750,7 +757,7 @@ func file_auth_auth_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_auth_auth_proto_rawDesc), len(file_auth_auth_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   12,
+			NumMessages:   13,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

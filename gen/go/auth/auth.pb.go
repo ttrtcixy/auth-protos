@@ -22,7 +22,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// todo подумать над возвращением ClientID как поля
 type SigninRequest struct {
 	state           protoimpl.MessageState `protogen:"open.v1"`
 	UsernameOrEmail string                 `protobuf:"bytes,1,opt,name=username_or_email,json=usernameOrEmail,proto3" json:"username_or_email,omitempty"`
@@ -79,7 +78,7 @@ type SigninResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
 	RefreshToken  string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
-	ClientId      string                 `protobuf:"bytes,3,opt,name=client_id,json=clientId,proto3" json:"client_id,omitempty"`
+	DeviceId      *string                `protobuf:"bytes,3,opt,name=device_id,json=deviceId,proto3,oneof" json:"device_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -128,9 +127,9 @@ func (x *SigninResponse) GetRefreshToken() string {
 	return ""
 }
 
-func (x *SigninResponse) GetClientId() string {
-	if x != nil {
-		return x.ClientId
+func (x *SigninResponse) GetDeviceId() string {
+	if x != nil && x.DeviceId != nil {
+		return *x.DeviceId
 	}
 	return ""
 }
@@ -488,7 +487,7 @@ type UserData struct {
 	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Username      string                 `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
 	Email         string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
-	RoleId        string                 `protobuf:"bytes,4,opt,name=role_id,json=roleId,proto3" json:"role_id,omitempty"`
+	RoleId        int64                  `protobuf:"varint,4,opt,name=role_id,json=roleId,proto3" json:"role_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -544,11 +543,11 @@ func (x *UserData) GetEmail() string {
 	return ""
 }
 
-func (x *UserData) GetRoleId() string {
+func (x *UserData) GetRoleId() int64 {
 	if x != nil {
 		return x.RoleId
 	}
-	return ""
+	return 0
 }
 
 type VerifyTokenResponse struct {
@@ -646,11 +645,13 @@ const file_auth_auth_proto_rawDesc = "" +
 	"\x0fauth/auth.proto\x12\x05users\x1a\x1bgoogle/protobuf/empty.proto\"W\n" +
 	"\rSigninRequest\x12*\n" +
 	"\x11username_or_email\x18\x01 \x01(\tR\x0fusernameOrEmail\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\"u\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\"\x88\x01\n" +
 	"\x0eSigninResponse\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
-	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x12\x1b\n" +
-	"\tclient_id\x18\x03 \x01(\tR\bclientId\"]\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x12 \n" +
+	"\tdevice_id\x18\x03 \x01(\tH\x00R\bdeviceId\x88\x01\x01B\f\n" +
+	"\n" +
+	"_device_id\"]\n" +
 	"\rSignupRequest\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12\x14\n" +
 	"\x05email\x18\x02 \x01(\tR\x05email\x12\x1a\n" +
@@ -674,7 +675,7 @@ const file_auth_auth_proto_rawDesc = "" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x1a\n" +
 	"\busername\x18\x02 \x01(\tR\busername\x12\x14\n" +
 	"\x05email\x18\x03 \x01(\tR\x05email\x12\x17\n" +
-	"\arole_id\x18\x04 \x01(\tR\x06roleId\"C\n" +
+	"\arole_id\x18\x04 \x01(\x03R\x06roleId\"C\n" +
 	"\x13VerifyTokenResponse\x12,\n" +
 	"\tuser_data\x18\x02 \x01(\v2\x0f.users.UserDataR\buserData\"\x9f\x01\n" +
 	"\x12PublicKeysResponse\x12J\n" +
@@ -751,6 +752,7 @@ func file_auth_auth_proto_init() {
 	if File_auth_auth_proto != nil {
 		return
 	}
+	file_auth_auth_proto_msgTypes[1].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

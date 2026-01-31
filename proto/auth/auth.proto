@@ -15,7 +15,6 @@ service Auth {
   rpc PublicKeys(google.protobuf.Empty) returns (PublicKeysResponse) {}
 }
 
-// todo подумать над возвращением ClientID как поля
 message SigninRequest {
   string username_or_email = 1;
   string password = 2;
@@ -24,7 +23,7 @@ message SigninRequest {
 message SigninResponse {
   string access_token = 1;
   string refresh_token = 2;
-  string client_id = 3;
+  optional string device_id = 3;
 }
 
 message SignupRequest {

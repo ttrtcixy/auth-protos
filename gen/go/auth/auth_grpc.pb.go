@@ -34,7 +34,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AuthClient interface {
 	Signin(ctx context.Context, in *SigninRequest, opts ...grpc.CallOption) (*SigninResponse, error)
-	Signup(ctx context.Context, in *SignupRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	Signup(ctx context.Context, in *SignupRequest, opts ...grpc.CallOption) (*SignupResponse, error)
 	Signout(ctx context.Context, in *SignoutRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	VerifyEmail(ctx context.Context, in *VerifyEmailRequest, opts ...grpc.CallOption) (*VerifyEmailResponse, error)
 	UpdateSession(ctx context.Context, in *UpdateSessionRequest, opts ...grpc.CallOption) (*UpdateSessionResponse, error)
@@ -60,9 +60,9 @@ func (c *authClient) Signin(ctx context.Context, in *SigninRequest, opts ...grpc
 	return out, nil
 }
 
-func (c *authClient) Signup(ctx context.Context, in *SignupRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *authClient) Signup(ctx context.Context, in *SignupRequest, opts ...grpc.CallOption) (*SignupResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(emptypb.Empty)
+	out := new(SignupResponse)
 	err := c.cc.Invoke(ctx, Auth_Signup_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -125,7 +125,7 @@ func (c *authClient) PublicKeys(ctx context.Context, in *emptypb.Empty, opts ...
 // for forward compatibility.
 type AuthServer interface {
 	Signin(context.Context, *SigninRequest) (*SigninResponse, error)
-	Signup(context.Context, *SignupRequest) (*emptypb.Empty, error)
+	Signup(context.Context, *SignupRequest) (*SignupResponse, error)
 	Signout(context.Context, *SignoutRequest) (*emptypb.Empty, error)
 	VerifyEmail(context.Context, *VerifyEmailRequest) (*VerifyEmailResponse, error)
 	UpdateSession(context.Context, *UpdateSessionRequest) (*UpdateSessionResponse, error)
@@ -144,7 +144,7 @@ type UnimplementedAuthServer struct{}
 func (UnimplementedAuthServer) Signin(context.Context, *SigninRequest) (*SigninResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method Signin not implemented")
 }
-func (UnimplementedAuthServer) Signup(context.Context, *SignupRequest) (*emptypb.Empty, error) {
+func (UnimplementedAuthServer) Signup(context.Context, *SignupRequest) (*SignupResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method Signup not implemented")
 }
 func (UnimplementedAuthServer) Signout(context.Context, *SignoutRequest) (*emptypb.Empty, error) {

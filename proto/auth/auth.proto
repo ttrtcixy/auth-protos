@@ -7,7 +7,7 @@ option go_package = "github.com/ttrtcixy/auth-protos/gen/go/auth;auth";
 
 service Auth {
   rpc Signin(SigninRequest) returns (SigninResponse) {}
-  rpc Signup(SignupRequest) returns (google.protobuf.Empty) {}
+  rpc Signup(SignupRequest) returns (SignupResponse) {}
   rpc Signout(SignoutRequest) returns (google.protobuf.Empty) {}
   rpc VerifyEmail(VerifyEmailRequest) returns (VerifyEmailResponse) {}
   rpc UpdateSession(UpdateSessionRequest) returns (UpdateSessionResponse) {}
@@ -30,6 +30,10 @@ message SignupRequest {
   string username = 1;
   string email = 2;
   string password = 3;
+}
+
+message SignupResponse {
+  optional string device_id = 1;
 }
 
 message SignoutRequest {

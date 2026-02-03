@@ -284,7 +284,8 @@ func (x *SignoutRequest) GetRefreshToken() string {
 
 type VerifyEmailRequest struct {
 	state            protoimpl.MessageState `protogen:"open.v1"`
-	EmailVerifyToken string                 `protobuf:"bytes,1,opt,name=email_verify_token,json=emailVerifyToken,proto3" json:"email_verify_token,omitempty"`
+	Email            string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	EmailVerifyToken string                 `protobuf:"bytes,2,opt,name=email_verify_token,json=emailVerifyToken,proto3" json:"email_verify_token,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -317,6 +318,13 @@ func (x *VerifyEmailRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use VerifyEmailRequest.ProtoReflect.Descriptor instead.
 func (*VerifyEmailRequest) Descriptor() ([]byte, []int) {
 	return file_auth_auth_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *VerifyEmailRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
 }
 
 func (x *VerifyEmailRequest) GetEmailVerifyToken() string {
@@ -705,9 +713,10 @@ const file_auth_auth_proto_rawDesc = "" +
 	"\n" +
 	"_device_id\"5\n" +
 	"\x0eSignoutRequest\x12#\n" +
-	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"B\n" +
-	"\x12VerifyEmailRequest\x12,\n" +
-	"\x12email_verify_token\x18\x01 \x01(\tR\x10emailVerifyToken\"z\n" +
+	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"X\n" +
+	"\x12VerifyEmailRequest\x12\x14\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\x12,\n" +
+	"\x12email_verify_token\x18\x02 \x01(\tR\x10emailVerifyToken\"z\n" +
 	"\x13VerifyEmailResponse\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
 	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x12\x1b\n" +

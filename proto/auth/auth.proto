@@ -41,7 +41,8 @@ message SignoutRequest {
 }
 
 message VerifyEmailRequest {
-  string email_verify_token = 1;
+  string email = 1;
+  string email_verify_token = 2;
 }
 
 message VerifyEmailResponse {

@@ -338,7 +338,7 @@ type VerifyEmailResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
 	RefreshToken  string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
-	ClientId      string                 `protobuf:"bytes,3,opt,name=client_id,json=clientId,proto3" json:"client_id,omitempty"`
+	DeviceId      string                 `protobuf:"bytes,3,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -387,16 +387,16 @@ func (x *VerifyEmailResponse) GetRefreshToken() string {
 	return ""
 }
 
-func (x *VerifyEmailResponse) GetClientId() string {
+func (x *VerifyEmailResponse) GetDeviceId() string {
 	if x != nil {
-		return x.ClientId
+		return x.DeviceId
 	}
 	return ""
 }
 
 type UpdateSessionRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	RefreshToken  string                 `protobuf:"bytes,1,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"` //  string client_id = 2;
+	RefreshToken  string                 `protobuf:"bytes,1,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -720,7 +720,7 @@ const file_auth_auth_proto_rawDesc = "" +
 	"\x13VerifyEmailResponse\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
 	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x12\x1b\n" +
-	"\tclient_id\x18\x03 \x01(\tR\bclientId\";\n" +
+	"\tdevice_id\x18\x03 \x01(\tR\bdeviceId\";\n" +
 	"\x14UpdateSessionRequest\x12#\n" +
 	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"_\n" +
 	"\x15UpdateSessionResponse\x12!\n" +

@@ -48,7 +48,7 @@ message VerifyEmailRequest {
 message VerifyEmailResponse {
   string access_token = 1;
   string refresh_token = 2;
-  string device_id = 3;
+  optional string device_id = 3;
 }
 
 message UpdateSessionRequest {

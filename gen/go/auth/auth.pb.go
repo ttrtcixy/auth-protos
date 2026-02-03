@@ -338,7 +338,7 @@ type VerifyEmailResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
 	RefreshToken  string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
-	DeviceId      string                 `protobuf:"bytes,3,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	DeviceId      *string                `protobuf:"bytes,3,opt,name=device_id,json=deviceId,proto3,oneof" json:"device_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -388,8 +388,8 @@ func (x *VerifyEmailResponse) GetRefreshToken() string {
 }
 
 func (x *VerifyEmailResponse) GetDeviceId() string {
-	if x != nil {
-		return x.DeviceId
+	if x != nil && x.DeviceId != nil {
+		return *x.DeviceId
 	}
 	return ""
 }
@@ -716,11 +716,13 @@ const file_auth_auth_proto_rawDesc = "" +
 	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"X\n" +
 	"\x12VerifyEmailRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\x12,\n" +
-	"\x12email_verify_token\x18\x02 \x01(\tR\x10emailVerifyToken\"z\n" +
+	"\x12email_verify_token\x18\x02 \x01(\tR\x10emailVerifyToken\"\x8d\x01\n" +
 	"\x13VerifyEmailResponse\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
-	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x12\x1b\n" +
-	"\tdevice_id\x18\x03 \x01(\tR\bdeviceId\";\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x12 \n" +
+	"\tdevice_id\x18\x03 \x01(\tH\x00R\bdeviceId\x88\x01\x01B\f\n" +
+	"\n" +
+	"_device_id\";\n" +
 	"\x14UpdateSessionRequest\x12#\n" +
 	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"_\n" +
 	"\x15UpdateSessionResponse\x12!\n" +
@@ -812,6 +814,7 @@ func file_auth_auth_proto_init() {
 	}
 	file_auth_auth_proto_msgTypes[1].OneofWrappers = []any{}
 	file_auth_auth_proto_msgTypes[3].OneofWrappers = []any{}
+	file_auth_auth_proto_msgTypes[6].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
